@@ -1,0 +1,7 @@
+DEBUG: True
+
+SLACK_TOKEN: "xoxb-123456789012-abcdefghijklmnopqrstuvwx" # Your token
+
+ACTIVE_PLUGINS:
+    - plugins.sin.SinPlugin
+    

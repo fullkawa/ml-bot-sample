@@ -6,7 +6,8 @@
 
 * Python 2.7
 * Tensorflow 0.10.0rc0
-* Keras 0.3.0
+* Keras 1.1.2
+* python-rtmbot 0.4.0
 
 ## 概要
 
@@ -15,6 +16,11 @@ yukiB氏の
 を利用し、RNN(LSTM)にsin波を学習させ、その値を返すボットという設定です。
 
 ## 使い方
+
+### インストール
+
+バージョン情報に記載のパッケージがインストールされていない場合はそれをインストールします。
+Tensorflowは`pip install tensorflow`, Kerasは`pip install keras`, python-rtmbotは`pip install rtmbot`でインストールできます。
 
 ### モデルにsin波を学習させる
 
@@ -55,4 +61,7 @@ Epoch 00005: early stopping
 
 上記"rnn_model.json"がモデルデータ、"weights.*.hdf5"が学習済みパラメータデータとなります。
 
+### Slackのトークンを取得する
 
+"rtmbot.conf_sample"を"rtmbot.conf"にリネームします。  
+次に[新しいBotUserを作成](https://api.slack.com/bot-users)し、そのトークンを"rtmbot.conf"のSLACK_TOKENに記載します。  
