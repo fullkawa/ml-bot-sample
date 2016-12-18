@@ -29,34 +29,35 @@ Tensorflowは`pip install tensorflow`, Kerasは`pip install keras`, python-rtmbo
 ```
 112-233:ml-bot-sample y.furukawa$ python train.py
 Using TensorFlow backend.
+____________________________________________________________________________________________________
+Layer (type)                     Output Shape          Param #     Connected to
+====================================================================================================
+lstm_1 (LSTM)                    (None, 300)           362400      lstm_input_1[0][0]
+____________________________________________________________________________________________________
+
+dense_1 (Dense)                  (None, 1)             301         lstm_1[0][0]
+____________________________________________________________________________________________________
+activation_1 (Activation)        (None, 1)             0           dense_1[0][0]
+====================================================================================================
+Total params: 362701
+____________________________________________________________________________________________________
 Train on 3325 samples, validate on 176 samples
 Epoch 1/10
-3325/3325 [==============================] - 27s - loss: 0.2050 - val_loss: 0.1024
-Epoch 00000: val_loss improved from inf to 0.10237, saving model to ./weights.00.hdf5
+3000/3325 [==========================>...] - ETA: 4s - loss: 0.2627 - acc: 0.0000e+00 Epoch 00000: val_loss improved from inf to 0.19250, saving model to ./tensorlog/weights.00-0.24-0.19.hdf5
+3325/3325 [==============================] - 49s - loss: 0.2408 - acc: 3.0075e-04 - val_loss: 0.1925 - val_acc: 0.0000e+00
 Epoch 2/10
-3325/3325 [==============================] - 25s - loss: 0.0341 - val_loss: 0.0009
-Epoch 00001: val_loss improved from 0.10237 to 0.00093, saving model to ./weights.01.hdf5
+3000/3325 [==========================>...] - ETA: 4s - loss: 0.0456 - acc: 3.3333e-04 Epoch 00001: val_loss improved from 0.19250 to 0.00085, saving model to ./tensorlog/weights.01-0.04-0.00.hdf5
+3325/3325 [==============================] - 48s - loss: 0.0412 - acc: 3.0075e-04 - val_loss: 8.4748e-04 - val_acc: 0.0000e+00
 Epoch 3/10
-3325/3325 [==============================] - 26s - loss: 0.0009 - val_loss: 0.0009
-Epoch 00002: val_loss improved from 0.00093 to 0.00091, saving model to ./weights.02.hdf5
+3000/3325 [==========================>...] - ETA: 4s - loss: 0.0015 - acc: 3.3333e-04     Epoch 00002: val_loss did not improve
+3325/3325 [==============================] - 47s - loss: 0.0024 - acc: 3.0075e-04 - val_loss: 0.0228 - val_acc: 0.0000e+00
 Epoch 4/10
-3325/3325 [==============================] - 25s - loss: 0.0028 - val_loss: 0.0301
-Epoch 00003: val_loss did not improve
+3000/3325 [==========================>...] - ETA: 4s - loss: 0.0189 - acc: 3.3333e-04 Epoch 00003: val_loss did not improve
+3325/3325 [==============================] - 46s - loss: 0.0177 - acc: 3.0075e-04 - val_loss: 0.0055 - val_acc: 0.0000e+00
 Epoch 5/10
-3325/3325 [==============================] - 25s - loss: 0.0200 - val_loss: 0.0045
-Epoch 00004: val_loss did not improve
-Epoch 6/10
-3325/3325 [==============================] - 25s - loss: 0.0033 - val_loss: 0.0068
-Epoch 00005: val_loss did not improve
-Epoch 00005: early stopping
-112-233:ml-bot-sample y.furukawa$
-112-233:ml-bot-sample y.furukawa$ ls -al
- (中略)
--rw-r--r--   1 y.furukawa  222086365      829 12 18 17:55 rnn_model.json
--rw-r--r--   1 y.furukawa  222086365     3687 12 18 17:52 train.py
--rw-r--r--   1 y.furukawa  222086365  1460448 12 18 17:53 weights.00.hdf5
--rw-r--r--   1 y.furukawa  222086365  1460448 12 18 17:54 weights.01.hdf5
--rw-r--r--   1 y.furukawa  222086365  1460448 12 18 17:54 weights.02.hdf5
+3000/3325 [==========================>...] - ETA: 4s - loss: 0.0089 - acc: 3.3333e-04 Epoch 00004: val_loss did not improve
+3325/3325 [==============================] - 47s - loss: 0.0095 - acc: 3.0075e-04 - val_loss: 0.0163 - val_acc: 0.0000e+00
+Epoch 00004: early stopping
 ```
 
 上記"rnn_model.json"がモデルデータ、"weights.*.hdf5"が学習済みパラメータデータとなります。
@@ -65,3 +66,9 @@ Epoch 00005: early stopping
 
 "rtmbot.conf_sample"を"rtmbot.conf"にリネームします。  
 次に[新しいBotUserを作成](https://api.slack.com/bot-users)し、そのトークンを"rtmbot.conf"のSLACK_TOKENに記載します。  
+
+### ボットを実行する
+
+`rtmbot`
+
+Slackにボットを追加し、`@[ボット名] [整数]`とメッセージを送ります。

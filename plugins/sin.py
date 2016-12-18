@@ -3,22 +3,33 @@
 from __future__ import print_function
 from __future__ import unicode_literals
 
+import glob
+import numpy as np
 from rtmbot.core import Plugin
 import re
 
+from keras.models import model_from_json
+from tensorflow.models.image.mnist.convolutional import BATCH_SIZE
+
 class SinPlugin(Plugin):
+    model_json = open('tensorlog/rnn_model.json', 'r').read()
+    model = model_from_json(model_json)
+    print('Model loaded.')
+    
+    files = glob.glob('tensorlog/weights.*.hdf5')
+    model.load_weights(files[-1])
+    print('Weights loaded from', files[-1])
+    print('READY!')
 
     def process_message(self, data):
-        print('data:', data) #DEBUG
         text = data[u'text'].encode('utf-8')
-        r = re.compile(r'<@.+> (.+)')
+        r = re.compile(r'<@(.+)>')
         match = r.search(text)
-        print('match(1):', match.group(1)) #DEBUG
         if match and match.group(1):
-            try:
-                in_value = int(match.group(1))
-                print('in_value:', in_value) #DEBUG
-                message = [data[u'channel'], str(in_value)]
-            except ValueError:
-                message = [data[u'channel'], '整数を入力してください']
+            X = np.zeros((1,100,1))
+            for i in range(0, 100):
+                X[0, i, 0] = i # 本サンプルでは固定とする
+            predicted = self.model.predict(X, batch_size=1)
+            print('predicted:', predicted) #DEBUG
+            message = [data[u'channel'], 'sin={0}'.format(predicted[0][0])]
             self.outputs.append(message)
