@@ -9,7 +9,6 @@ from rtmbot.core import Plugin
 import re
 
 from keras.models import model_from_json
-from tensorflow.models.image.mnist.convolutional import BATCH_SIZE
 
 class SinPlugin(Plugin):
     model_json = open('tensorlog/rnn_model.json', 'r').read()
@@ -25,7 +24,7 @@ class SinPlugin(Plugin):
         text = data[u'text'].encode('utf-8')
         r = re.compile(r'<@(.+)>')
         match = r.search(text)
-        if match and match.group(1):
+        if match and match.group(1): # DMのときのみ
             X = np.zeros((1,100,1))
             for i in range(0, 100):
                 X[0, i, 0] = i # 本サンプルでは固定とする
